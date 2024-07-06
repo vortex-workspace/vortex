@@ -2,18 +2,33 @@
     "name": "vortex-framework/vortex",
     "type": "project",
     "license": "MIT",
+    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "App\\": "App/"
         }
     },
+    "require": {
+        "vortex-workspace/framework": "dev-master"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Stellar\\Composer\\Package::autoload",
+            "@php cosmo ide:gateways -q"
+        ],
+        "post-create-project-cmd": [
+            "cp -n .env.example .env",
+            "@composer install"
+        ]
+    },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true
-    },
-    "minimum-stability": "dev",
-    "require": {
-        "vortex-framework/vortex-framework": "dev-hexagonal-version"
     }
 }

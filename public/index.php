@@ -1,9 +1,16 @@
 <?php
 
-use App\Boot\Bootstrap;
+use Stellar\Boot\Application;
+use Stellar\Request;
+use Stellar\RouteDriver;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-//Bootstrap::boot();
+try {
 
-require_once __DIR__ . '/routes.php';
+    Application::build(__DIR__ . '/..');
+} catch (Exception|Error $exception) {
+    dd($exception);
+}
+
+RouteDriver::discover(new Request())::getRoute()->call();
